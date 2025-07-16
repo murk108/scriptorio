@@ -1,12 +1,14 @@
 # Scriptorio
 
+[banner](images/banner.png)
+
 **Intro**:
 
 Introduces a new script terminal that runs user defined code. Fully open environment and no sandboxing at all (same access level as Factorio's mod API).
 
-Of course it's not just a script terminal though. It also comes with my API, which makes scripting certain things much easier, and also makes prototyping faster. 
+Of course it's not just a script terminal though. It also comes with my API, which makes scripting and prototyping certain things much faster, and easier. 
 
-There's also a virtual file system tool, but likely not needed unless youre making a massive script.
+There's also a virtual file system tool, but likely not needed unless youre making a massive script, or just like having clean modular code.
 
 ---
 
