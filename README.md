@@ -4,7 +4,9 @@
 
 Introduces a new script terminal that runs user defined code. Fully open environment and no sandboxing at all (same access level as Factorio's mod API).
 
-Of course it's not just a script terminal though. It also comes with my API, which makes scripting certain things much easier, and also makes prototyping faster. There's also a virtual file system tool, but likely not needed unless youre making a massive script.
+Of course it's not just a script terminal though. It also comes with my API, which makes scripting certain things much easier, and also makes prototyping faster. 
+
+There's also a virtual file system tool, but likely not needed unless youre making a massive script.
 
 ---
 
@@ -165,7 +167,7 @@ Scheduler:schedule(1, function ()
 end)
 ```
 
-Very simple case here. You could script an auto crafter, or an auto smelter, or anything.
+Very simple case here.
 
 ---
 
@@ -203,7 +205,7 @@ This is also useful:
 - [Factorio Lua API Docs](https://lua-api.factorio.com/)
 
 
-If this is not enough, you can also dig through the source code. The script terminal basically has 0 sandboxing, so anything used in the source code is usable in the terminal (as long as it's in scope).
+If this is not enough, you can also dig through the source code. The script terminal has 0 sandboxing, so anything used in the source code is usable in the terminal (as long as it's in scope).
 
 ---
 
