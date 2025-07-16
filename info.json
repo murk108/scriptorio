@@ -1,0 +1,9 @@
+{
+  "name": "scriptorio",
+  "version": "1.0.0",
+  "title": "Scriptorio",
+  "author": "murk108",
+  "description": "",
+  "factorio_version": "2.0",
+  "dependencies": ["base >= 2.0", "murk-core >= 1.0"]
+}

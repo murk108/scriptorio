@@ -1,0 +1,1 @@
+require("core.scripting.script_terminal")
