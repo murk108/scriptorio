@@ -22,6 +22,37 @@ Allows for in game running of user defined code. Fully open environemnt and no s
 
 ---
 
+**Usage of the wire system**:
+
+![Wire Marker Image](images/wire_marker.png)
+
+Let's say we had this wire network. By itself, it doesn't do much. It only defines the topology, but no logic. That's where the scripting part comes in.
+
+``` lua
+Markers.set_marker_name(1, "circles") -- the marker name is set ingame via a gui, but we do this for now since it's an example.
+
+local markers = Markers.get_markers("circles") -- multiple markers can have the same name, hence get_markers
+local red_graph = Wires.get_graph("red")
+
+local marker_id = markers[1] -- for this example, theres only 1 marker named "circles", hence index = 1
+
+local network = red_graph:get_network(marker_id) -- gets the network. from the image, it will return [1, 10].
+
+for i = 1, #network do
+    local id = network[i]
+    print(id)
+
+    -- can do more fancy stuff...
+end
+```
+
+outputs:
+- 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+
+This basically gives you an elegant way to seperate topology from logic. Just a very simple scenario.
+
+---
+
 **Usage of the scheduler and hooker**:
 
 Let's say we wanted to simulate notifications. One guy notifies every second, and another guy receives it, but responds 2 seconds late everytime.
@@ -66,38 +97,6 @@ outputs:
 - cycle keeps going...
 
 It's quite simple, but quite powerful.
-
----
-
-**Usage of the wire system**:
-
-![Wire Marker Image](images/wire_marker.png)
-
-Let's say we had this wire network. By itself, it doesn't do much. It only defines the topology, but no logic. That's where the scripting part comes in.
-
-``` lua
-Markers.set_marker_name(1, "circles") -- the marker name is set ingame via a gui, but we do this for now since it's an example.
-
-local markers = Markers.get_markers("circles") -- multiple markers can have the same name, hence get_markers
-local red_graph = Wires.get_graph("red")
-
--- marker_id = 1 here, since we just set it earlier
-local marker_id = markers[1] -- for this example, theres only 1 marker named "circles"
-
-local network = red_graph:get_network(marker_id)
-
-for i = 1, #network do
-    local id = network[i]
-    print(id)
-
-    -- can do more fancy stuff...
-end
-```
-
-outputs:
-- 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-
-This basically gives you an elegant way to seperate topology from logic. Just a very simple scenario.
 
 ---
 
