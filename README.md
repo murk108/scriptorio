@@ -2,7 +2,7 @@
 
 **Intro**:
 
-Allows for in game running of user defined code. Fully open environemnt and no sandboxing (as much as Factorio's api allows). Also comes with my custom API/utilities, which makes scripting much better.
+Allows for in game running of user defined code. Fully open environment and no sandboxing (as much as Factorio's api allows). Also comes with my custom API/utilities, which makes scripting much better.
 
 ---
 
@@ -19,6 +19,12 @@ Allows for in game running of user defined code. Fully open environemnt and no s
 - **Click** on entities to open the marker renamer GUI.
 - **Shift + Click** to connect entities with wire.
 - **Shift + Right Click** to deselect the current entity.
+
+---
+
+**Up next**:
+
+Up next, I'm going to show some examples on how to use my custom API, and what it can do, and how it builds up to actual in game use.
 
 ---
 
@@ -100,6 +106,51 @@ It's quite simple, but quite powerful.
 
 ---
 
+**Usage of events**:
+
+Hooking onto my events, or the game's events is pretty simple. Here's how it usually goes.
+
+``` lua
+
+---@param graph WireGraph
+---@param id_a Id
+---@param id_b Id
+Hooker:add_hook(Events.on_wire_connect, function (graph, id_a, id_b)
+    local entity_a = get_entity(id_a)
+    local entity_b = get_entity(id_b)
+
+    print("Events.on_wire_connect: ")
+    print(serpent.block(entity_a))
+    print(serpent.block(entity_b))
+    print("wire_id: " .. graph.wire_id)
+end)
+
+---@param entity LuaEntity
+---@param tags table<string, any>
+Hooker:add_hook(Events.on_spawned, function (entity, tags)
+    print("Events.on_spawned: ")
+    print(serpent.block(entity))
+    print(serpent.block(tags))
+end)
+
+---@param event EventData.on_entity_damaged
+Hooker:add_hook(GameEvents.on_entity_damaged, function (event)
+    print("GameEvents.on_entity_damaged: ")
+    print(serpent.block(event))
+end)
+
+```
+
+[get_entity](https://github.com/murk108/murk-core/blob/main/luaserver/globals.d.lua) just returns the LuaEntity from a entity's unit_number.
+
+[Events](https://github.com/murk108/murk-core/blob/main/core/event_defines.lua) are custom events from my API. If you scroll down in [Murk Core headers](https://github.com/murk108/murk-core/blob/main/luaserver/headers.d.lua), you'll see the args for each event name.
+
+[GameEvents](https://lua-api.factorio.com/latest/events.html) is just an alias for `defines.events`
+
+[serpent](https://lua-api.factorio.com/latest/auxiliary/libraries.html) comes with Factorio's api, and it basically formats tables for you, to make prints more "pretty".
+
+---
+
 **In game usage**:
 
 ![Entity Group](images/entity_group.png)
@@ -110,18 +161,25 @@ Let's say we wanted to add 1 iron plate every 10 seconds into all of these chest
 local red_graph = Wires.get_graph("red")
 
 Scheduler:schedule(1, function ()
-    -- gets all the entities in the group "entity_group", using the red_graph
-    local entities = Markers.get_entities_from_graph("entity_group", red_graph)
+    local markers = Markers.get_markers("entity_group") -- gets all markers named "entity_group"
 
-    for i = 1, #entities do
-        local entity = entities[i]
-        local inventory = entity.get_inventory(defines.inventory.chest)
-        inventory.insert{name = "iron-plate", count = 1} -- adds 1 iron plate into the chest
+    for i = 1, #markers do
+        local marker_id = markers[i] -- in the picture, this is the chest marked "entity_group"
+        local network = red_graph:get_network(marker_id)
+
+        for j = 1, #network do -- loops over every chest in the picture
+            local id = network[j] -- id of the chest
+            local chest = get_entity(id)
+            local inventory = chest.get_inventory(defines.inventory.chest)
+            inventory.insert{name = "iron-plate", count = 1} -- adds 1 iron plate into the chest
+        end
     end
 
     return 600 -- waits for 10 seconds before running again
 end)
 ```
+
+Very simple case here. You could script an auto crafter, or an auto smelter, or anything.
 
 ---
 
@@ -135,9 +193,15 @@ Since the terminal only runs code, and Factorio doesn't allow file reading/writi
 
 **Documentation**:
 
-All of the available documentation is inside the `luaserver` folder in any of my mods. The source code also acts as documentation if the `luaserver` folder isn't enough.
+This is the available documentation so far:
+- [Murk Core Docs](https://github.com/murk108/murk-core/tree/main/luaserver)
+- [Murk Wire System Docs](https://github.com/murk108/murk-wire-system/tree/main/luaserver)
 
-This is also useful if you want to interact with the game [Factorio Lua API Docs](https://lua-api.factorio.com/)
+This is also useful:
+- [Factorio Lua API Docs](https://lua-api.factorio.com/)
+
+
+If this is not enough, you can also dig through the source code. The script terminal basically has 0 sandboxing, so anything used in the source code is usable in the terminal (as long as it's in scope).
 
 ---
 
@@ -160,4 +224,4 @@ It's also highly recommended to get [Factorio Modding Toolkit Plugin](https://ma
 
 **Final Words**:
 
-Using all these building blocks, you can theoretically automate your entire factory. Please don't cheat or troll ;). You can do anything you want with this really.
+Using all these building blocks, you can theoretically automate your entire factory. Please don't cheat or troll ;). I mean... Nobody's stopping you from doing anything...
