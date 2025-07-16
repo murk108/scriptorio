@@ -1,6 +1,6 @@
 # Scriptorio
 
-[banner](images/banner.png)
+![banner](images/banner.png)
 
 **Intro**:
 
