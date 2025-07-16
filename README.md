@@ -2,29 +2,15 @@
 
 **Intro**:
 
-Allows for in game running of user defined code. Fully open environment and no sandboxing (as much as Factorio's api allows). Also comes with my custom API/utilities, which makes scripting much better.
+Introduces a new script terminal that runs user defined code. Fully open environment and no sandboxing at all (same access level as Factorio's mod API).
 
----
-
-**Dependencies**: 
-
-- [Murk Core](https://github.com/murk108/murk-core)
-- [Murk Wire System](https://github.com/murk108/murk-wire-system)
-
----
-
-**In Game Controls**:
-
-- **G** to open the **Script Terminal**, and the **Wire Selector**.
-- **Click** on entities to open the marker renamer GUI.
-- **Shift + Click** to connect entities with wire.
-- **Shift + Right Click** to deselect the current entity.
+Of course it's not just a script terminal though. It also comes with my API, which makes scripting certain things much easier, and also makes prototyping faster. There's also a virtual file system tool, but likely not needed unless youre making a massive script.
 
 ---
 
 **Up next**:
 
-Up next, I'm going to show some examples on how to use my custom API, and what it can do, and how it builds up to actual in game use.
+Up next, I'm going to show some examples on how to use my API, and what it can do, and how it builds up to actual in game use.
 
 ---
 
@@ -183,9 +169,25 @@ Very simple case here. You could script an auto crafter, or an auto smelter, or 
 
 ---
 
-**Optional In-Terminal File System**:
+**In Game Controls**:
 
-Since the terminal only runs code, and Factorio doesn't allow file reading/writing, I made a tool to handle that issue. This tool basically allows you to write modular code in different files with `require` capabilitites, and still be able to run it all inside the terminal, in one paste. Just a quality of life thing. It's kind of like a mod loader, but done in-game at runtime.
+- **G** to open the **Script Terminal**, and the **Wire Selector**.
+- **Click** on entities to open the marker renamer GUI.
+- **Shift + Click** to connect entities with wire.
+- **Shift + Right Click** to deselect the current entity.
+
+---
+
+**Dependencies**: 
+
+- [Murk Core](https://github.com/murk108/murk-core)
+- [Murk Wire System](https://github.com/murk108/murk-wire-system)
+
+---
+
+**Optional Virtual File System**:
+
+Since the terminal only runs code, and Factorio doesn't allow file reading/writing, I made a tool to handle that issue. This tool basically allows you to write modular code, in different files, with `require` capabilitites, and still be able to run it all inside the terminal, in one paste. Just a quality of life thing. It's kind of like a mod loader, but done in-game at runtime.
 
 [Lua Virtual Filesystem](https://github.com/murk108/lua-vfs)
 
