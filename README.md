@@ -54,21 +54,28 @@ This basically gives you an elegant way to seperate topology from logic. Just a 
 Let's say we wanted to simulate notifications. One guy notifies every second, and another guy receives it, but responds 2 seconds late everytime.
 
 ``` lua
--- 60 ticks in one second
-local initial_delay = 1 -- 1 tick delay aka 1/60th of a second
+-- there are 60 ticks in one second
+local initial_delay = 1 -- 1/60th of a second
 
 Scheduler:schedule(initial_delay, function ()
-    Hooker:trigger_hook("notify", "I notified you at tick " .. Scheduler.tick .. ", I'll notify you again in 1 second")
-    return 60 -- 1 second delay
+    Hooker:trigger_hook("message_chad", "Bob", "How's your day Chad?")
+    return false
 end)
 
-Hooker:add_hook("notify", function(message)
-    local response_delay = 120 -- 2 second delay
-    Scheduler:schedule(response_delay, function ()
-        print("I've received your message.")
-        print("You said: " .. message)
-        print("I responded 2 seconds late at tick " .. Scheduler.tick .. ", sorry for the delay!")
-        return false -- return false to remove the callback
+local spam_chad = Scheduler:schedule(initial_delay, function ()
+    print("Tick " .. Scheduler.tick .. ": ANSWER ME NOW CHAD! ILL KEEP SPAMMING YOU UNTIL YOU DO!")
+    return 30 -- 0.5 second interval
+end)
+
+Hooker:add_hook("message_chad", function(sender, message)
+    local respond_delay = 120 -- 2 second delay
+
+    Scheduler:schedule(respond_delay, function ()
+        print( "Chad: Hello! Sorry for the 2 second delay! You can stop spamming me now!!")
+        print(sender .. " : " .. message)
+
+        Scheduler:remove(spam_chad)
+        return false
     end)
 end)
 
@@ -112,7 +119,7 @@ Hooker:add_hook(Events.on_wire_connect, function (graph, id_a, id_b)
     print("Events.on_wire_connect: ")
     print(serpent.block(entity_a))
     print(serpent.block(entity_b))
-    print("wire_id: " .. graph.wire_id)
+    print("wire_name: " .. graph.wire_name)
 end)
 
 ---@param entity LuaEntity
