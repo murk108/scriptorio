@@ -1,6 +1,8 @@
-local hooker = Hooker:create_listener()
-local input = InputHooker:create_listener()
-local scheduler = Scheduler:create_listener(4096)
+local safe_mode = true
+
+local hooker = Hooker:create_listener(safe_mode)
+local input = InputHooker:create_listener(safe_mode)
+local scheduler = Scheduler:create_listener(4096, safe_mode)
 local to_clear = {hooker, input, scheduler}
 
 local M = {}
