@@ -51,7 +51,7 @@ This basically gives you an elegant way to seperate topology from logic. Just a 
 
 **Usage of the scheduler and hooker**:
 
-Let's say we wanted to simulate notifications. One guy notifies every second, and another guy receives it, but responds 2 seconds late everytime.
+Let's say we wanted to simulate notifications. A guy named Bob sends a message to Chad, and waits for a response. If it takes too long, he'll spam Chad until he responds.
 
 ``` lua
 -- there are 60 ticks in one second
@@ -184,7 +184,7 @@ end)
 
 **Optional Virtual File System**:
 
-Since the terminal only runs code, and Factorio doesn't allow file reading/writing, I made a tool to handle that issue. This tool basically allows you to write modular code, in different files, with `require` capabilitites, and still be able to run it all inside the terminal, in one paste. Just a quality of life thing. It's kind of like a mod loader, but done in-game at runtime.
+Since the terminal only runs code, and Factorio doesn't allow file reading/writing, I made a tool to handle that issue. This tool basically allows you to write modular code in different files, with `require` capabilitites, and still be able to run it all inside the terminal in one paste. Just a quality of life thing. It's kind of like a mod loader, but done in-game at runtime.
 
 [Lua Virtual Filesystem](https://github.com/murk108/lua-vfs)
 
