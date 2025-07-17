@@ -82,24 +82,12 @@ end)
 ```
 
 outputs:
-- I notified you at tick 1, I'll notify you again in 1 second
-- I notified you at tick 61, I'll notify you again in 1 second
-
-- **I've received your message.**
-- **You said: I notified you at tick 1, I'll notify you again in 1 second**
-- **I responded 2 seconds late at tick 121, sorry for the delay!**
-
-- I notified you at tick 121, I'll notify you again in 1 second
-
-- **I've received your message.**
-- **You said: I notified you at tick 61, I'll notify you again in 1 second**
-- **I responded 2 seconds late at tick 181, sorry for the delay!**
-
-- I notified you at tick 181, I'll notify you again in 1 second
-
-- cycle keeps going...
-
-It's quite simple, but quite powerful.
+- Tick 1: ANSWER ME NOW CHAD! ILL KEEP SPAMMING YOU UNTIL YOU DO!
+- Tick 31: ANSWER ME NOW CHAD! ILL KEEP SPAMMING YOU UNTIL YOU DO!
+- Tick 61: ANSWER ME NOW CHAD! ILL KEEP SPAMMING YOU UNTIL YOU DO!
+- Tick 91: ANSWER ME NOW CHAD! ILL KEEP SPAMMING YOU UNTIL YOU DO!
+- Chad: Hello! Sorry for the 2 second delay! You can stop spamming me now!! <---- Tick 121
+- Bob: How's your day Chad? <---- Tick 121
 
 ---
 
@@ -175,8 +163,6 @@ Scheduler:schedule(1, function ()
     return 600 -- waits for 10 seconds before running again
 end)
 ```
-
-Very simple case here.
 
 ---
 
